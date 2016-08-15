@@ -23,5 +23,15 @@
   int[] oneA = {1};
 
   int[] a = {1,3,2,5,7,6,4};
+  root:   4
+  <4 i=3
+  left： 1,3,2,  -->root:2 left：1  right:3
+  >4
+  right：5,7,6,-->root:6 left：5  right:7
 
   int[] b = {1,7,4,8,10,9,5};
+  root:   5
+  <5 i=1
+  left： 1   right：7,4,8,10,9
+  4<5,return false;
+  
