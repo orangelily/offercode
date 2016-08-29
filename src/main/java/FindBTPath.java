@@ -18,6 +18,40 @@ public class FindBTPath {
 
         }
      }
+    public void PreOrder(TreeNode root){
+        if (root!=null) {
+            System.out.println(root.val);
+            PreOrder(root.left);
+            PreOrder(root.right);
+        }
+    }
+    public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+        TreeNode root = reConstructBinaryTree(pre,0,pre.length-1,in,0,in.length-1);
+
+        return root;
+    }
+
+    private TreeNode reConstructBinaryTree(int[] pre,int startPre,int endPre,int[]in,int startIn,int endIn){
+        if(startPre>endPre||startIn>endIn)
+            return null;
+        TreeNode root = new TreeNode(pre[startPre]);
+        for(int i=startIn;i<=endIn;i++){
+            if(in[i]==pre[startPre]){
+                //left结束位置endPre = 左边个数i-1-startIn  +  左起位置startPre+1
+                //right开始位置startIn = startIn
+                //右边结束位置endIn = i-1
+                root.left = reConstructBinaryTree(pre,startPre+1,startPre+i-startIn,in,startIn,i-1);
+                //右子树
+                //left开始位置startPre = left结束位置+1
+                //left结束位置endPre = endPre
+                //右边开始位置startIn = i+1
+                //右边结束位置endIn = endIn
+                root.right = reConstructBinaryTree(pre,startPre+i-startIn+1,endPre,in,i+1,endIn);
+            }
+        }
+//        System.out.println(root.val);
+        return root;
+    }
 
     public ArrayList<ArrayList<Integer>> FindPath(TreeNode root,int target) {
         ArrayList<ArrayList<Integer>> pathList = new ArrayList<ArrayList<Integer>>();
